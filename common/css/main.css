@@ -1,0 +1,156 @@
+/* #ifndef APP-NVUE */
+/* 设置全局样式 */
+/* (1) 页面高度100%,默认字体28upx,默认行高1.4,背景颜色 */
+page{
+	/* height: 100%; */
+	font-size: 28rpx;
+	line-height: 1.4;
+	color: #222;
+	/* background: #f5f5f5; */
+}
+
+button{border: 0;padding: 0;margin: 0;}
+button:after{border: 0;}
+
+/* (2) 图片默认100%宽度 */
+image{ height: auto; width: 100%;box-sizing: border-box; display: block;}
+::-webkit-scrollbar{
+	display: none;
+}
+uni-button:after{border: 0;}
+
+.font-w500{font-weight: 500;}
+
+.w-70{width: 70%;}
+.w-90{width: 90%;}
+
+.f5-2{height: 20rpx;background-color: #f5f5f5;}
+
+/* 无数据 */
+.nodata{width: 360rpx;height: 360rpx;margin:100rpx auto;}
+.nodata image{width: 100%;height: 100%;}
+
+/* 右侧固定按钮 */
+
+
+/* 购物车按钮显示数量 */
+
+
+/* #endif */
+/* 主色调 */
+/* 主背景颜色（橙色）*/
+.Mgb{background-color: #E6B968;}
+.bg-f5{background-color: #f5f5f5;}
+.bg-f9{background-color: #F9F9FB;}
+.bg-black{background-color: #000}
+.bg-f7{background-color: #F7F9FB;}
+.bg-3{background-color: #3C3B38;}
+/* 主点击背景颜色（淡橙色）*/
+
+/* 主字体颜色（橙色）*/
+.colorM{color: #E6B968;}
+.colorR{color: #EA2131;}
+
+.borderM{border: 1px solid #E6B968;}
+
+
+.f5Bj-H10{height: 10rpx; background: #f5f5f5;}
+.f5Bj-H20{ height: 20rpx; background: #f5f5f5;}
+.f5bj{background: #f5f5f5;}
+.whiteBj{background: #fff;}
+.f720{background-color: #F7F9FB;height: 20rpx;}
+
+.f8-16{background: #f8f8f8;height: 16rpx;width: 100%;}
+
+
+
+.price,.price1{ color: #EA2131;}
+.price::before{content: "￥";}
+.price1::before{content: "￥";font-size: 22rpx;}
+.priceY{ color: #EA2131;}
+.priceY::after{content: "/月";}
+.priceV{ color: #EA2131;}
+.priceV::before{content: "会员:";font-size: 22rpx;}
+.priceIcon{width: 28rpx;height: 28rpx;margin-right: 8rpx;}
+.priceF{ color: #EA2131;}
+.priceF::before{content: "积分:";font-size: 24rpx;}
+.priceM::after{content: "元/㎡";}
+.yuanJia{ color: #999; font-size: 24rpx; text-decoration: line-through; }
+.yuanJia::before{content: "￥";}
+
+/* 阴影 */
+.shadowM{box-shadow: 0 0 6rpx 0 rgba(0,0,0,0.15);}
+
+/* 返回按钮 */
+
+
+/* 按钮 */
+.btn{line-height: 100rpx;text-align: center;font-size: 30rpx;}
+.bg3c{background-color: #3C3B38;}
+.moreBtn{width: 200rpx;height: 66rpx;line-height: 66rpx;margin: 50rpx auto 0;background-color: #E6B968;border-radius: 10rpx;}
+.btn60{height: 60rpx;line-height: 60rpx;background-color: #E6B968;font-size: 26rpx;border-radius: 30rpx;text-align: center;}
+.btn80{line-height: 80rpx;font-size: 30rpx;text-align: center;border-radius: 10rpx;}
+.btnOrder{line-height: 50rpx;text-align: center;border-radius: 6rpx;border: 1px solid #222;}
+
+/* 实名认证弹窗 */
+
+
+/* 秒杀 */
+
+
+/* 列表导航 */
+.list{display: flex;align-items: center;background-color: #fff;position: sticky;top: 0;}
+.list .li{font-size: 32rpx;color: #888;padding: 30rpx 0;text-align: center;}
+.list .on{color: #222;position: relative;font-weight: bold;}
+.list .on::before{content: '';width: 100%;height: 2px;position: absolute;bottom: 0;background-color: #E6B968;left: 0;}
+
+
+/* 列表商品信息 */
+.listImg{width: 213rpx;height: 213rpx;}
+.h213{height: 213rpx;}
+
+.w300{width: 300rpx;}
+
+
+/* 底部 */
+.footer{height: 110rpx;width:100%;border-top: 1px solid #e1e1e1;position: fixed;bottom: 0;display: flex;justify-content: space-between;background-color: #fff;z-index: 99;align-items: center;}
+.footer .item{width: 25%;display: flex;flex-direction: column;align-items: center;font-size: 22rpx;color: #222;justify-content: center;line-height: 1;}
+.footIcon{width: 54rpx;height: 54rpx;display: flex;align-items: center;justify-content: center;margin-bottom: 8rpx;margin-top: 10rpx;}
+.footer .on{color: #E6B968;}
+.footer .item image{width: 44rpx;height: 43rpx;margin-bottom: 10rpx;}
+.footer .item:nth-child(2) image{width: 44rpx;height: 44rpx;}
+.footer .item:nth-child(4) image{width: 36rpx;height: 46rpx;}
+.onFootIcon{width: 54rpx!important;height: 54rpx!important;}
+
+/* 搜索框 */
+.ss{height: 60rpx;line-height: 60rpx;border-radius: 30rpx;}
+.ss input{flex: 1;color: 666;}
+
+
+/* 商店 */
+
+
+
+/* 图标 */
+.jt-icon{width: 12rpx;height: 22rpx;}
+.dw-icon{width: 23rpx;height: 27rpx;}
+.fh-icon{width: 44rpx;height: 34rpx;}
+.del-icon{width: 26rpx;height: 36rpx;}
+.line{width: 285rpx;height: 11rpx;}
+
+/* 标签 */
+
+
+/* 计数 */
+.jIcon1{width: 21rpx;height: 3rpx;}
+.jIcon2{width: 21rpx;height: 21rpx;}
+.count{border-radius: 8rpx;height: 52rpx;display: flex;align-items: center;justify-content: center;border: 1px solid #f5f5f5;width: 180rpx;}
+.countIcon{display: flex;align-items: center;justify-content: center;width: 52rpx;}
+.countNum{width: 76rpx;text-align: center;border-left: 1px solid #f5f5f5;border-right: 1px solid #f5f5f5;}
+.countIcon1{width: 18rpx;height: 4rpx;}
+.countIcon2{width: 20rpx;height: 20rpx;}
+
+
+
+button{line-height: 1;background-color: rgba(0,0,0,0);}
+.jf::before{content: '';background-color: #f5f5f5;height: 50rpx;width: 1px;position: absolute;right: 0;top: 50%;margin-top: -25rpx;}
