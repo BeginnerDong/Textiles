@@ -3,7 +3,7 @@
 		
 		<view class="myTop px-3 pt-3">
 			<view class="flex">
-				<image src="../../static/images/my-img.png" class="wh110 mr-2"></image>
+				<image src="../../static/images/my-img.png" class="wh110 mr-2 radius-5"></image>
 				<view>
 					<view class="font-34 font-w colorf">哆啦A梦</view>
 					<view class="font-24 p-r">
