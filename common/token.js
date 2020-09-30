@@ -276,7 +276,24 @@ class Token {
             return uni.getStorageSync('merchant_token');
         }
     }
+	
+	getSalesToken(callback,postData) {
+	    if((postData&&postData.refreshToken)||!uni.getStorageSync('sales_token')){
+	        uni.removeStorageSync('sales_token');
+	        uni.removeStorageSync('sales_info');
+			$Utils.showToast('登录已失效，请重新登录','none')
+			setTimeout(function() {
+				uni.redirectTo({
+				  url: '/pages/sales-login/sales-login'
+				});
+			}, 1000);
+	        
+	    }else{
+	        return uni.getStorageSync('sales_token');
+	    }
+	}
    
+	sales_token
 
 
     getUserInfo(params,callback){

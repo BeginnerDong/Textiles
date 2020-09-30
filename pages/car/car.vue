@@ -1,26 +1,27 @@
 <template>
 	<view>
-		<view class="p-s top-0 p-3 font-26 color8 bg-white bB-f5">全部商品（10）</view>
+		<view class="p-s top-0 p-3 font-26 color8 bg-white bB-f5">全部商品({{mainData.length?mainData.length:'0'}})</view>
 		
-		<view class="bg-white bB-f5 flexX">
+		<view class="bg-white bB-f5 flexX"   v-for="(item,index) in mainData" :key="index">
 			<view class="flex1 p-3 pb-4 w750 flex-shrink">
-				<!-- <image src="../../static/images/shopping-icon.png" class="wh36"></image> -->
-				<image src="../../static/images/shopping-icon1.png" class="wh36"></image>
-				<image src="../../static/images/classification-img.png" class="wh200 ml-2"></image>
+				<image @click="choose(index)" :src="item.isSelect?'../../static/images/shopping-icon.png':'../../static/images/shopping-icon1.png'"  class="wh36"></image>
+				<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" class="wh200 ml-2"></image>
 				<view class="flex5 font-30 py-0 flex-1 pl-2 h200">
-					<view class="avoidOverflow2">ROYALCOVER_罗卡芙家纺 浪漫婚典 真丝绣花提花九件套 爱的乐章</view>
-					<view class="font-24 color9 flex-1 line-h pt-1">规格：240*240</view>
+					<view class="avoidOverflow2">{{item.title}}</view>
+					<view class="font-24 color9 flex-1 line-h pt-1">
+						<span v-for="(c_item,key,c_index) in item.sku[item.skuIndex].label_description" :key="key">{{key}}:{{c_item}}</span>
+					</view>
 					<view class="flex1">
-						<view class="price1 font-32 font-w">6980.00</view>
+						<view class="price1 font-32 font-w">{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].price:''}}</view>
 						<view class="count">
-							<view class="countIcon"><image src="../../static/images/shopping-icon4.png" class="countIcon1"></image></view>
-							<view class="countNum">1</view>
-							<view class="countIcon"><image src="../../static/images/shopping-icon3.png" class="countIcon2"></image></view>
+							<view class="countIcon" @click="counter(index,'-')"><image src="../../static/images/shopping-icon4.png" class="countIcon1"></image></view>
+							<view class="countNum">{{item.count}}</view>
+							<view class="countIcon" @click="counter(index,'+')"><image src="../../static/images/shopping-icon3.png" class="countIcon2"></image></view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<view class="flex4 colorf font-24 Mgb flex-shrink del">
+			<view class="flex4 colorf font-24 Mgb flex-shrink del" @click="deleteAll(index)">
 				<image src="../../static/images/shopping-icon2.png" class="del-icon mb-1"></image>
 				<view>删除</view>
 			</view>
@@ -31,14 +32,14 @@
 		
 		<view style="height: 230rpx;"></view>
 		<view class="bg-white bT-e1 flex1 font-24 p-fX bot110">
-			<view class="flex pl-3 pr-2">
-				<image src="../../static/images/shopping-icon1.png" class="wh36 mr-1"></image>
+			<view class="flex pl-3 pr-2"  @click="chooseAll">
+				<image :src="item.isChooseAll?'../../static/images/shopping-icon.png':'../../static/images/shopping-icon1.png'" class="wh36 mr-1"></image>
 				<view>全选</view>
 			</view>
-			<view class="flex-1 colorM">删除</view>
-			<view class="font-22 color9 px-3">合计：<text class="font-32 price1 font-w">6980.00</text></view>
+			<view class="flex-1 colorM" @click="deleteAll()">删除</view>
+			<view class="font-22 color9 px-3">合计：<text class="font-32 price1 font-w">{{totalPrice}}</text></view>
 			<view class="w230 Mgb" 
-			@click="Router.navigateTo({route:{path:'/pages/submitOrder/submitOrder'}})">去结算</view>
+			@click="pay">去结算</view>
 		</view>
 		
 		
@@ -69,14 +70,155 @@
 	export default {
 		data() {
 			return {
-				Router:this.$Router
+				Router:this.$Router,
+				mainData:[
+				],
+				is_allDelt:false,
+				totalPrice:0,
+				isChooseAll:true
 			}
 		},
+		
+		onLoad() {
+			const self = this;
+			// self.$Utils.loadAll(['getMainData'], self);
+		},
+		
+		onShow() {
+			const self = this;
+			self.mainData = self.$Utils.getStorageArray('cartData');
+			console.log('self.mainData',self.mainData)
+			self.checkChooseAll();
+			self.countTotalPrice();
+		},
+		
 		methods: {
 			
+			pay(e) {
+				const self = this;
+				const orderList = [
+				];
+				for (var i = 0; i < self.mainData.length; i++) {
+					if (self.mainData[i].isSelect) {
+						orderList.push(
+							{sku_id:self.mainData[i].sku[self.mainData[i].skuIndex].id,count:self.mainData[i].count,
+							product:self.mainData[i],skuIndex:self.mainData[i].skuIndex,type:self.mainData[i].type},
+						);
+					};
+				};
+				if (orderList.length == 0) {
+					self.$Utils.showToast('未选择商品', 'none', 1000);
+					return;
+				};
+				uni.setStorageSync('payPro', orderList);
+				self.$Router.navigateTo({
+					route: {
+						path: '/pages/submitOrder/submitOrder'
+					}
+				})
+			},
+			
+			checkChooseAll() {
+				const self = this;
+				var isChooseAll = true;
+				for (var i = 0; i < self.mainData.length; i++) {
+					if (!self.mainData[i].isSelect) {
+						isChooseAll = false;
+					};
+				};
+				self.isChooseAll = isChooseAll;
+			},
+			
+			chooseAll() {
+				const self = this;
+				self.isChooseAll = !self.isChooseAll;
+				for (var i = 0; i < self.mainData.length; i++) {
+					self.mainData[i].isSelect = self.isChooseAll;
+					self.$Utils.setStorageArray('cartData', self.mainData[i], 'id', 999);
+				};
+				self.countTotalPrice();
+			},
+			
+			allDeltShow(){
+				const self = this;
+				self.is_allDelt = !self.is_allDelt
+			},
+			
+			counter(index,type) {
+				const self = this;
+				if (type == '+') {
+					self.mainData[index].count++;
+				} else {
+					if (self.mainData[index].count > 1) {
+						self.mainData[index].count--;
+					}
+				};
+				self.$Utils.setStorageArray('cartData', self.mainData[index], 'id', 999);
+				self.countTotalPrice();
+			},
+			
+			deleteAll(index) {
+				const self = this;
+				uni.showModal({
+					title: '提示',
+					content: '确认要删除选中商品吗？',
+					showCancel: true,
+					cancelText: '取消',
+					confirmText: '确认',
+					success: res => {
+						if (res.confirm) {
+							if(index){
+								self.$Utils.delStorageArray('cartData', self.mainData[index], 'id');
+							}else{
+								for (var i = 0; i < self.mainData.length; i++) {
+									if(self.mainData[i].isSelect){
+										self.$Utils.delStorageArray('cartData', self.mainData[i], 'id');
+									}
+								};
+							}
+							self.mainData = self.$Utils.getStorageArray('cartData');
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					},
+				});
+			},
+			
+			
+			
+			choose(index) {
+				const self = this;
+				
+				if (self.mainData[index].isSelect) {
+					self.mainData[index].isSelect = false;
+				} else {
+					self.mainData[index].isSelect = true;
+				};
+				self.$Utils.setStorageArray('cartData', self.mainData[index], 'id', 999);
+				
+				self.checkChooseAll();
+				self.countTotalPrice();
+			},
+			
+			countTotalPrice() {
+				const self = this;
+				self.totalPrice = 0;
+				
+				for (var i = 0; i < self.mainData.length; i++) {
+					if (self.mainData[i].isSelect) {
+						self.totalPrice += self.mainData[i].sku[self.mainData[i].skuIndex].price * self.mainData[i].count;
+					};
+				};
+				self.totalPrice = self.totalPrice.toFixed(2)
+				console.log(self.totalPrice)
+			},
+			
+			
+			
 		}
-	}
+	};
 </script>
+
 
 <style>
 page{background-color: #f5f5f5;}

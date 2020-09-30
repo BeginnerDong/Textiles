@@ -43,7 +43,7 @@ uni-button:after{border: 0;}
 .bg-f5{background-color: #f5f5f5;}
 .bg-f9{background-color: #F9F9FB;}
 .bg-black{background-color: #000}
-.bg-f7{background-color: #F7F9FB;}
+.bg-f7{background-color: #D7D7D7;}
 .bg-3{background-color: #3C3B38;}
 /* 主点击背景颜色（淡橙色）*/
 
@@ -133,6 +133,8 @@ uni-button:after{border: 0;}
 
 /* 图标 */
 .jt-icon{width: 12rpx;height: 22rpx;}
+.jt-icon1{width: 35rpx;height: 22rpx;}
+.jt-icon2{width: 50rpx;height: 22rpx;margin-left: 10rpx;}
 .dw-icon{width: 23rpx;height: 27rpx;}
 .fh-icon{width: 44rpx;height: 34rpx;}
 .del-icon{width: 26rpx;height: 36rpx;}
@@ -145,7 +147,7 @@ uni-button:after{border: 0;}
 .jIcon1{width: 21rpx;height: 3rpx;}
 .jIcon2{width: 21rpx;height: 21rpx;}
 .count{border-radius: 8rpx;height: 52rpx;display: flex;align-items: center;justify-content: center;border: 1px solid #f5f5f5;width: 180rpx;}
-.countIcon{display: flex;align-items: center;justify-content: center;width: 52rpx;}
+.countIcon{display: flex;align-items: center;justify-content: center;width: 52rpx;height: 100%;}
 .countNum{width: 76rpx;text-align: center;border-left: 1px solid #f5f5f5;border-right: 1px solid #f5f5f5;}
 .countIcon1{width: 18rpx;height: 4rpx;}
 .countIcon2{width: 20rpx;height: 20rpx;}

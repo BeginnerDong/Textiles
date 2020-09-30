@@ -1,14 +1,26 @@
 <template>
 	<view>
 		
-		<view class="myTop px-3 pt-3">
+		<view class="myTop px-3 pt-3" style="height: 280rpx;">
 			<view class="flex">
-				<image src="../../static/images/my-img.png" class="wh110 mr-2 radius-5"></image>
+				<image :src="userData.headImgUrl?userData.headImgUrl:''" class="wh110 mr-2 radius-5"></image>
 				<view>
-					<view class="font-34 font-w colorf">哆啦A梦</view>
-					<view class="font-24 p-r">
+					<view class="font-34 font-w colorf">{{userData.nickname?userData.nickname:''}}</view>
+					<view class="font-24 p-r" v-if="userData.info&&userData.info.level==0">
 						<image src="../../static/images/my-icon.png" class="vipIcon"></image>
 						<view class="p-aX right-0 top-0 pr-1 vipTxt">普通会员</view>
+					</view>
+					<view class="font-24 p-r" v-if="userData.info&&userData.info.level==1">
+						<image src="../../static/images/my-icon1.png" class="vipIcon"></image>
+						<view class="p-aX right-0 top-0 pr-1 vipTxt">黄金会员</view>
+					</view>
+					<view class="font-24 p-r" v-if="userData.info&&userData.info.level==2">
+						<image src="../../static/images/my-icon2.png" class="vipIcon"></image>
+						<view class="p-aX right-0 top-0 pr-1 vipTxt">钻石会员</view>
+					</view>
+					<view class="font-24 p-r" v-if="userData.info&&userData.info.level==3">
+						<image src="../../static/images/my-icon3.png" class="vipIcon"></image>
+						<view class="p-aX right-0 top-0 pr-1 vipTxt">皇冠会员</view>
 					</view>
 				</view>
 			</view>
@@ -26,12 +38,12 @@
 		<view class="flex bg-white p-3 mb-2 line-h">
 			<view class="flex4 p-r w-50 jf"
 			@click="Router.navigateTo({route:{path:'/pages/user-integral/user-integral'}})">
-				<view class="font-36 font-w pb-2">83236</view>
+				<view class="font-36 font-w pb-2">{{userData.info?userData.info.score:0}}</view>
 				<view class="font-24 color8">积分</view>
 			</view>
 			<view class="flex4 p-r w-50"
 			@click="Router.navigateTo({route:{path:'/pages/user-coupon/user-coupon'}})">
-				<view class="font-36 font-w pb-2">2</view>
+				<view class="font-36 font-w pb-2">{{userData.userCoupon?userData.userCoupon.length:0}}</view>
 				<view class="font-24 color8">优惠券</view>
 			</view>
 		</view>
@@ -65,7 +77,7 @@
 				</view>
 			</view>
 			<view class="flex1"
-			@click="Router.navigateTo({route:{path:'/pages/sales-login/sales-login'}})">
+			@click="checkLogin">
 				<image src="../../static/images/my-icon7.png" class="wh36 mr-2"></image>
 				<view class="py-4 flex-1 flex1">
 					<view>导购员入口</view>
@@ -104,11 +116,50 @@
 	export default {
 		data() {
 			return {
-				Router:this.$Router
+				Router:this.$Router,
+				userData:{}
 			}
+		},
+		onLoad() {
+			const self = this;
+			self.$Utils.loadAll(['getUserData'], self);
 		},
 		methods: {
 			
+			checkLogin(){
+				const self = this;
+				if(uni.getStorageSync('sales_token')){
+					self.Router.navigateTo({route:{path:'/pages/sales-enter/sales-enter'}})
+				}else{
+					self.Router.navigateTo({route:{path:'/pages/sales-login/sales-login'}})
+				}
+			},
+			
+			getUserData() {
+				const self = this;
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				postData.getAfter = {
+					userCoupon:{
+						tableName:'UserCoupon',
+						middleKey:'user_no',
+						key:'user_no',
+						searchItem:{
+							status:1,
+							use_step:1
+						},
+						condition:'='
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userData = res.info.data[0];
+						self.userData.info.score = parseInt(self.userData.info.score)
+					};
+					self.$Utils.finishFunc('getUserData');
+				};
+				self.$apis.userGet(postData, callback);
+			},
 		}
 	}
 </script>

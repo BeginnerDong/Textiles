@@ -6,12 +6,12 @@
 			<view class="font-52 font-w">登录</view>
 			
 			<view class="font-32 font-w tit">账号</view>
-			<input type="text" value="" placeholder="请输入" />
+			<input type="text" v-model="submitData.login_name" placeholder="请输入" />
 			<view class="font-32 font-w tit">密码</view>
-			<input type="text" value="" placeholder="请输入" />
+			<input type="text" v-model="submitData.password" placeholder="请输入" />
 			
 			<view class="btn80 Mgb shadow z10"
-			@click="Router.navigateTo({route:{path:'/pages/sales-enter/sales-enter'}})">登录</view>
+			@click="submit">登录</view>
 		</view>
 		
 	</view>
@@ -21,10 +21,40 @@
 	export default {
 		data() {
 			return {
+				
+				submitData:{
+					login_name:'',
+					password:''
+				},
 				Router:this.$Router
 			}
 		},
 		methods: {
+			
+			submit() {
+				const self = this;
+				const postData = {
+					login_name: self.submitData.login_name,
+					password:self.submitData.password
+				};
+				if (self.$Utils.checkComplete(self.submitData)) {
+					const callback = (res) => {
+						if (res.solely_code == 100000) {
+							self.$Utils.showToast('登陆成功','none')
+							uni.setStorageSync('sales_token', res.token);
+							uni.setStorageSync('sales_info', res.info);
+							setTimeout(function() {
+								self.Router.redirectTo({route:{path:'/pages/sales-enter/sales-enter'}})
+							}, 1000);
+						} else {
+							self.$Utils.showToast(res.msg,'none')
+						}
+					}
+					self.$apis.saleLogin(postData, callback);
+				} else {
+					self.$Utils.showToast('请补全登录信息', 'none')
+				};
+			},
 			
 		}
 	}
