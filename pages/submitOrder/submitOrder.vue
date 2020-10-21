@@ -472,7 +472,7 @@
 					FuncName: 'add',
 					data: {
 						type:3,
-						count:100,
+						count:parseInt(self.pay.wxPay/100),
 						trade_info:'完成订单',
 						account:1,
 						thirdapp_id:2,

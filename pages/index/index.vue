@@ -1,6 +1,6 @@
 <template>
 	<view class="p-r">
-		<image src="../../static/images/img.png" mode="widthFix" class="p-aX bgImg"></image>
+		<image src="../../static/images/img.png"  class="p-aXY bgImg"></image>
 		<view class="py-2">
 			<view class="flex font-24 color8 px-3 mx-3  p-r  ss"
 			@click="Router.navigateTo({route:{path:'/pages/search/search'}})">
@@ -53,11 +53,13 @@
 			</view>
 		</view>
 		<view class="p-r px-3 flex mt-2">
-			<view class="flex4 mr-r" v-for="(item,index) in brandData" :key="index">
+			<view class="flex4 mr-r" v-for="(item,index) in brandData" :key="index"
+			:data-id="item.id" @click="Router.redirectTo({route:{path:'/pages/classify/classify?brandId='+$event.currentTarget.dataset.id}})"
+			>
 				<view class="flex0 pp-b radius10 px-3">
 					<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode="widthFix" class="ppIcon"></image>
 				</view>
-				<view class="flex0 font-18 color2 pt-2 Mgb radius10 pp-y" @click="Router.redirectTo({route:{path:'/pages/classify/classify?brandId='+$event.currentTarget.dataset.id}})">
+				<view class="flex0 font-18 color2 pt-2 Mgb radius10 pp-y">
 					<view>查看商品</view>
 					<image src="../../static/images/home-icon5.png" class="jt-icon1 ml-1"></image>
 				</view>
@@ -189,12 +191,12 @@
 			getMainData() {
 				const self = this;
 				const postData = {};
-				postData.paginate =  {
+				/* postData.paginate =  {
 					count: 0,
 					currentPage:1,
 					pagesize:3,
 					is_page:true,
-				},
+				}, */
 				postData.searchItem = {
 					thirdapp_id: 2,
 					type: 3,

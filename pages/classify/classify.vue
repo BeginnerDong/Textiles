@@ -120,9 +120,10 @@
 		onLoad(options) {
 			const self = this;
 			if(options.brandId){
-				self.chooseBrand.push(options.brandId);
+				self.chooseBrand.push(parseInt(options.brandId));
 				self.searchItem.brand = ['in',self.chooseBrand]
 			};
+			console.log('self.chooseBrand',self.chooseBrand)
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			self.$Utils.loadAll(['getMainData','getBrandData','getLabelData'], self);
 		},
@@ -173,6 +174,7 @@
 				} else {
 					self.chooseBrand.push(self.brandData[index].id);
 				};
+				console.log('self.chooseBrand',self.chooseBrand)
 			},
 			
 			chooseLabelItem(index) {
