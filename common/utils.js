@@ -205,7 +205,7 @@ export default {
 			};
 		};
 		wx.uploadFile({
-			url: 'https://www.ruiyihuamu.com/api/public/index.php/api/v1/Base/FtpFile/upload',
+			url: 'https://www.luodanti.com/api/public/index.php/api/v1/Base/FtpFile/upload',
 			filePath: filePath,
 			name: name,
 			formData: formData,

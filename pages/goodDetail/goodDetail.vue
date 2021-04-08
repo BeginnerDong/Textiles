@@ -1,6 +1,11 @@
 <template>
 	<view v-if="showAll">
 		<!-- 轮播 -->
+		<button open-type="contact" style="position: fixed;bottom: 40%;right: 2%;z-index: 10">
+			<image src="../../static/images/kefu.png" style="width: 70rpx;height: 70rpx;">
+			<view class="colorM font-28">客服</view>
+		</button>
+		
 		<swiper class="swiper-box" indicator-dots="indicatorDots" autoplay="autoplay" interval="3000" indicator-active-color="#E6B968">
 			<block>
 				<swiper-item class="swiper-item" v-for="(item,index) in mainData.bannerImg" :key="index">
@@ -11,8 +16,13 @@
 		
 		<!-- 详情 -->
 		<view class="p-3 flex1">
-			<view class="price1 colorR font-40" v-if="mainData.type==1">{{mainData.sku[specsCurr]?mainData.sku[specsCurr].price:''}}</view>
-			<view class="colorR font-40" v-if="mainData.type==2">{{mainData.price}} <text class="font-22">积分</text></view>      <!-- 积分商品展示 -->
+			
+			<view class="flex">
+				<view class="price1 colorR font-40" v-if="mainData.type==1">{{mainData.sku[specsCurr]?mainData.sku[specsCurr].price:''}}</view>
+				<view class="colorR font-40" v-if="mainData.type==2">{{mainData.price}} <text class="font-22">积分</text></view>
+				<view class="font-24 color6 pl-2" style="text-decoration: line-through;">市场价：{{mainData.o_price?mainData.o_price:'0.00'}}</view>
+			</view>
+			
 			<button class="flex4 font-22" v-if="mainData.type==1" open-type="share">        <!-- 积分商品不展示分享 -->
 				<image src="../../static/images/details-icon.png" class="wh30 mb-2"></image>
 				<view>分享</view>
@@ -72,7 +82,7 @@
 		<!-- 正常购买按钮 -->
 		<view  v-if="mainData.type==1">
 			<view style="height: 100rpx;"></view>
-			<view class="p-fX bottom-0 bT-f5 flex1 bg-white">
+			<view class="p-fX bottom-0 flex1 bg-white">
 				<view class="flex flex-1">
 					<view class="flex4 font-22 bR-f5 w145 line-h" @click="Router.back({route:{delta:1}})">
 						<image src="../../static/images/details-icon3.png" class="fh-icon mb-1"></image>
@@ -94,7 +104,7 @@
 		<!-- 积分商品兑换按钮 -->
 		<view v-if="mainData.type==2">
 			<view style="height: 170rpx;"></view>
-			<view class="p-fX bottom-0 bT-f5">
+			<view class="p-fX bottom-0">
 				<view class="font-24 colorf jf text-center bg-7e" v-if="!canBuy">您的可用积分不足，去看看其他商品吧~</view>
 				<view class="flex1 bg-white">
 					<view class="flex">
@@ -327,7 +337,8 @@
 				var callback = function(res) {
 					if (res.info.data.length > 0) {
 						self.mainData = res.info.data[0];
-						
+						const regex = new RegExp('<img', 'gi');
+						self.mainData.content = self.mainData.content.replace(regex, `<img style="width: 100%;height:auto"`);
 						if (self.mainData.type == 1) {
 							for(var key in self.mainData.label){
 							  if(self.mainData.sku_array.indexOf(parseInt(key))!=-1){

@@ -1,15 +1,15 @@
 <template>
 	<view>
 		
-		<view class="list mb-2 shadowM">
+		<view class="list mb-2 shadowM z100">
 			<view class="li" :class="liCurr==0?'on':''" @click="changeLi(0)">未使用</view>
 			<view class="li" :class="liCurr==1?'on':''" @click="changeLi(1)">已使用</view>
 			<view class="li" :class="liCurr==2?'on':''" @click="changeLi(2)">已过期</view>
 		</view>
 		
 		<!-- 优惠券 -->
-		<view class="p-3" v-if="userCoponData.length>0" v-for="(item,index) in userCoponData" :key="index">
-			<view class="mb-3 p-r">
+		<view class="p-3">
+			<view class="mb-3 p-r" v-if="userCoponData.length>0" v-for="(item,index) in userCoponData" :key="index">
 				<image src="../../static/images/coupons-img.png" mode="widthFix" v-show="liCurr==0"></image>
 				<image src="../../static/images/coupons-img1.png" mode="widthFix" v-show="liCurr!=0"></image>
 				<view class="flex1 p-aXY p-3 pb-4">
@@ -94,12 +94,13 @@
 				if(self.liCurr!=i){
 					self.liCurr = i
 					if(self.liCurr==0){
-						self.searchItem.use_step=0
-					}else if(self.liCurr==1){
 						self.searchItem.use_step=1
+					}else if(self.liCurr==1){
+						self.searchItem.use_step=2
 					}else if(self.liCurr==2){
 						self.searchItem.use_step=-1
 					}
+					self.userCoponData= [];
 					self.getUserCouponData()
 				}
 			},

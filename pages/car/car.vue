@@ -33,7 +33,7 @@
 		<view style="height: 230rpx;"></view>
 		<view class="bg-white bT-e1 flex1 font-24 p-fX bot110">
 			<view class="flex pl-3 pr-2"  @click="chooseAll">
-				<image :src="item.isChooseAll?'../../static/images/shopping-icon.png':'../../static/images/shopping-icon1.png'" class="wh36 mr-1"></image>
+				<image :src="isChooseAll?'../../static/images/shopping-icon.png':'../../static/images/shopping-icon1.png'" class="wh36 mr-1"></image>
 				<view>全选</view>
 			</view>
 			<view class="flex-1 colorM" @click="deleteAll()">删除</view>

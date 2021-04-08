@@ -8,7 +8,7 @@
 				
 			  @click="Router.navigateTo({route:{path:'/pages/goodDetail/goodDetail?id='+$event.currentTarget.dataset.id}})">
 				<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" class="wh330"></image>
-				<view class="avoidOverflow2 pt-1">{{item.title?item.title:''}}</view>
+				<view class="avoidOverflow2 pt-1" style="height: 86rpx;">{{item.title?item.title:''}}</view>
 				<view class="colorR font-32 font-w pt-2">{{item.price?item.price:''}} <text class="font-20">积分</text></view>
 			</view>
 		</view>

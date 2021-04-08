@@ -156,7 +156,13 @@
             "style" : {
 				"navigationBarTitleText": "推广用户"
 			}
-        }
+        },
+		{
+		    "path" : "pages/interestsDetail/interestsDetail",
+		    "style" : {
+				"navigationBarTitleText": "权益详情"
+			}
+		}
     ],
 	"globalStyle": {
 		//"navigationStyle":"custom",

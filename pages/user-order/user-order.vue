@@ -127,11 +127,17 @@
 			goPay(index) {
 				const self = this;	
 				self.pay= self.mainData[index].pay;
-				const postData = self.$Utils.cloneForm(self.pay);	
+				const postData = {
+					wxPay:{
+						price:self.mainData[index].price
+					}
+				};	
 				postData.tokenFuncName = 'getProjectToken',
 				postData.searchItem = {
 					id: self.mainData[index].id
 				};
+				console.log('postData',postData)
+				//return
 				const callback = (res) => {
 					if (res.solely_code == 100000) {
 						uni.setStorageSync('canClick', true);

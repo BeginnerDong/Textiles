@@ -1,6 +1,9 @@
 <template>
 	<view>
-		
+		<button open-type="contact" style="position: fixed;bottom: 40%;right: 2%;z-index: 10">
+			<image src="../../static/images/kefu.png" style="width: 70rpx;height: 70rpx;">
+			<view class="colorM font-28">客服</view>
+		</button>
 		<view class="p-s top-0 bg-white z10 pt-3">
 			<view class="flex font-24 color8 px-3 mx-3 b-e1 flex-1 ss" @click="Router.navigateTo({route:{path:'/pages/search/search'}})">
 				<image src="../../static/images/home-icon.png" class="wh36 mr-3"></image>
@@ -33,7 +36,8 @@
 		@click="Router.navigateTo({route:{path:'/pages/goodDetail/goodDetail?id='+$event.currentTarget.dataset.id}})">{{item.title?item.title:''}}</view>
 				<view class="flex1">
 					<view class="price1 font-32 font-w">{{item.price?item.price:''}}</view>
-					<view  class="font-24 color6">已售：{{item.sale_count?item.sale_count:0}}</view>
+					<!-- <view  class="font-24 color6">已售：{{item.sale_count?item.sale_count:0}}</view> -->
+					<view  class="font-24 color6" style="text-decoration: line-through;">市场价：{{item.o_price?item.o_price:0}}</view>
 					<image @click="addCar(index)" src="../../static/images/classification-icon3.png" class="wh52"></image>
 				</view>
 			</view>

@@ -69,6 +69,14 @@
 		
 		<view class="px-3 bg-white">
 			<view class="flex1"
+			@click="Router.navigateTo({route:{path:'/pages/vip-interests/vip-interests'}})">
+				<image src="../../static/images/my-icon0.png" class="wh36 mr-2"></image>
+				<view class="py-4 bB-f5 flex-1 flex1">
+					<view>会员权益</view>
+					<image src="../../static/images/details-icon2.png" class="jt-icon"></image>
+				</view>
+			</view>
+			<view class="flex1"
 			@click="Router.navigateTo({route:{path:'/pages/address/address'}})">
 				<image src="../../static/images/my-icon6.png" class="wh36 mr-2"></image>
 				<view class="py-4 bB-f5 flex-1 flex1">
@@ -84,11 +92,21 @@
 					<image src="../../static/images/details-icon2.png" class="jt-icon"></image>
 				</view>
 			</view>
+			<button class="flex1 font-28" open-type="contact">
+				<image src="../../static/images/home-icon3.png" class="wh36 mr-2"></image>
+				<view class="py-4 flex-1 flex1">
+					<view>联系我们</view>
+					<image src="../../static/images/details-icon2.png" class="jt-icon"></image>
+				</view>
+			</button>
 		</view>
+		 
+		<!-- <button open-type="contact" style="position: fixed;bottom: 40%;right: 2%;z-index: 10">
+			<image src="../../static/images/kefu.png" style="width: 70rpx;height: 70rpx;">
+			<view class="colorM font-28">客服</view>
+		</button> -->
 		
-		
-		
-		
+		<view style="height: 130rpx;"></view>
 		<!-- footer -->
 		<view class="footer">
 			<view class="item" @click="Router.redirectTo({route:{path:'/pages/index/index'}})">
@@ -168,7 +186,7 @@
 <style scoped>
 .myTop{background-color: #272727;}
 .vipIcon{width: 160rpx;height: 61rpx;}
-.vipTxt{line-height: 61rpx;text-align: right;}
+.vipTxt{line-height: 61rpx;padding-left: 50rpx;}
 .vip-icon{width: 44rpx;height: 39rpx;}
 .btn60{width: 160rpx;}
 
